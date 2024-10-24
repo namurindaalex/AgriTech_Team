@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <title>AgriTech</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" 
+href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" 
+integrity="sha384- 
+ B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" 
+  crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2E7D32;
+            --secondary: #81C784;
+            --accent: #1B5E20;
+            --light: #E8F5E9;
+            --dark: #1B5E20;
+            --text-light: #FFFFFF;
+            --text-dark: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat','Segoe UI', sans-serif;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(46, 125, 50, 0.95);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        
+        .logo {
+            display: inline-block;
+            width: 80px; /* Adjust the logo width as needed */
+            height: 80px; /* Adjust the logo height as needed */
+            border: none;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Ensures the image fits well within the logo area */
+            border-radius: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            background: transparent;
+            transition: background 0.1s ease-in-out;
+        }
+
+        .nav-links a:hover {
+            /* color: var(--secondary); */
+            background: #ff5722;
+        }
+
+        .menu-btn {
+            display: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-image: url('images/A-modern-farm-showcasing-precision-agriculture-technology.-The-scene-includes-high-tech-tractors-with-GPS-systems-drones-flying-overhead-surveying-th.webp');
+            /* animation: slideShow 20s infinite; */
+            z-index: -1;
+        }
+
+        .hero-content {
+            background: rgba(0, 0, 0, 0.658);
+            padding: 3rem;
+            border-radius: 10px;
+            max-width: 1000px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+            transition: scale 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .service-card.real-weather, .service-card.experts{
+            background: #1B5E20;
+            color: #fff;
+        }
+        .service-card.real-weather h3,.service-card.real-weather p, .service-card.experts h3,.service-card.experts p{
+            /* background: #1B5E20; */
+            color: #fff;
+        }
+        .service-card.real-weather:hover, .service-card.experts:hover{
+            box-shadow: 0 6px 10px #ffa600;
+            scale: 1.02;
+        }
+        .service-card.field-sensor{
+            background: #c27e00;
+        }
+        .service-card.field-sensor h3,.service-card.field-sensor p{
+            color:#fff;
+        }
+        .service-card.field-sensor:hover{
+            box-shadow: 0 6px 10px #4bd152;
+            scale: 1.02;
+        }
+        .service-card:hover {
+           
+            cursor: pointer;
+        }
+
+        .service-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+
+        .service-card-image {
+    width: 100%;
+    height: 200px; /* Set a fixed height */
+    overflow: hidden;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 1rem;
+}
+
+/* Ensure the image fills the div without distortion */
+.service-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Styling for the icon */
+.service-icon {
+    background-color: #ff5722; /* Icon background color */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    top: -30px;
+}
+
+.service-icon i {
+    font-size: 30px;
+    color: #fff;
+}
+
+/* Text adjustments */
+.service-card h3 {
+    margin: 1rem 0 0.5rem;
+    font-size: 1.5rem;
+    color: #333;
+    position: relative;
+    top: -20px; /* Adjust text to account for the icon */
+}
+
+.service-card p {
+    color: #666;
+    font-size: 1rem;
+    position: relative;
+    top: -20px; /* Adjust text with the icon */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .services-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+
+
+
+
+
+
+
+
+        /* About Section */
+        .about {
+            padding: 6rem 2rem;
+            background: var(--light);
+        }
+
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .mission-card, .vision-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: flex;
+            width: auto;
+            flex-direction: column;
+            justify-content: cente;
+            color:#fff;
+        }
+        .mission-card h3,.vision-card h3{
+            margin-bottom: 1rem;
+        }
+        .mission-card{
+            background: #1B5E20;
+        }
+        .vision-card{
+            background: #c27e00;
+        }
+        .mission-vision-card-image {
+    position: relative; /* Position relative for layering */
+    overflow: hidden; /* Hide overflow to create a zoom effect */
+    width: 120px;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.mission-vision-card-image img {
+    width: 100%; /* Make the image responsive */
+    height: auto; /* Maintain aspect ratio */
+    transition: transform 0.3s ease; /* Smooth zoom transition */
+}
+
+.mission-vision-card-image:hover img {
+    transform: scale(1.1); /* Zoom in on hover */
+    z-index: 1; /* Bring the image to the front */
+}
+        /* How It Works Section */
+        .how-it-works {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .step-card {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: scale 0.3s;
+            color:#fff;
+        }
+        .step-card h3 {
+            color: #fff;
+            margin-bottom: 1.5rem;
+        }
+        .step-card:nth-child(odd){
+            background-color: #1B5E20;
+        }
+        .step-card:nth-child(odd):hover{
+            box-shadow: 0 4px 6px #b93d18;
+        }
+        .step-card:nth-child(even){
+            background-color: #c27e00;
+        }
+        .step-card:nth-child(even):hover{
+            box-shadow: 0 4px 6px #1B5E20;
+        }
+        .step-card:hover {
+            scale:1.1;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #ff5722;
+            font-weight: 600;
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+            margin-top: 1rem;
+        
+        }
+
+        .cta-button:hover {
+            background: #b93d18;;
+        }
+        /*Pricing*/
+        .pricing-section {
+    text-align: center; /* Center align the text */
+    margin: 3rem 0; /* Add margin to the top and bottom */
+    background: #E8F5E9;
+    padding: 6rem 2rem;
+}
+
+.pricing-cards {
+    display: flex; /* Use flexbox for card layout */
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+    margin-top: 2rem;
+}
+
+.pricing-card {
+    background-color: #f9f9f9; /* Light background color */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 2rem; /* Padding inside the card */
+    width: 300px; /* Fixed width for cards */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: transform 0.3s; /* Smooth scaling on hover */
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.pricing-card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+}
+
+.card-header {
+    display: flex; /* Align title and icon */
+    align-items: center; /* Center icon vertically */
+    justify-content: center; /* Center header content */
+    margin-bottom: 1rem; /* Space below the header */
+}
+
+.card-header h3 {
+    margin: 0 0.5rem; /* Space around the title */
+}
+.card-header i{
+    color: #f39c12;
+}
+
+.description {
+    font-size: 1.1rem; /* Slightly larger font for description */
+    margin: 1rem 0; /* Space above and below */
+}
+
+.price {
+    font-size: 1.5rem; /* Larger font for the price */
+    color: #1B5E20; /* Darker color for visibility */
+    font-weight: bold; /* Bold text for emphasis */
+}
+
+.maintenance {
+    font-size: 0.9rem; /* Smaller font for maintenance note */
+    color: #666; /* Gray color for subtlety */
+    margin-bottom: 1.5rem; /* Space below the maintenance text */
+}
+
+.btn {
+    background-color: #ff5722; /* Green button */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 0.8rem 1.5rem; /* Padding inside the button */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for hover */
+    font-weight: 600;
+}
+
+.btn:hover {
+    background-color: #b93d18; /* Darker green on hover */
+}
+
+/* Specific styles for the Platinum card */
+.pricing-card.platinum {
+    border-color: #f39c12; /* Gold border for Platinum */
+}
+
+/* Specific styles for the Rental card */
+.pricing-card.rental {
+    border-color: #3498db; /* Blue border for Rental */
+}
+
+        /* Footer */
+        footer {
+            background: #c27e00;
+            color: var(--text-light);
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            align-items: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .quick-links p,
+        .contact-us-footer p{
+            margin-block:1rem;
+        }
+        .contact-us-footer p i{
+            margin-right: 0.5rem;
+        }
+        .logo-footer {
+    text-align: center;
+    padding: 20px;
+    border-right: 2px solid #fff;
+    margin-right: 20px;
+}
+
+.logo-footer-image {
+    display: inline-block;
+    width: 150px; /* Set the desired width */
+    height: 150px; /* Set the desired height */
+    overflow: hidden;
+    border-radius: 0.2rem; /* Optional: to make the image circular */
+}
+
+.logo-footer-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image fits well in the defined area */
+}
+
+.logo-footer p {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+
+
+        @keyframes slideShow {
+            0%, 25% {
+                background-image: url('https://www.iisd.org/sites/default/files/styles/banner_mobile/public/2020-06/RS2085_food-agriculture-topic.jpg?h=10d202d3&itok=keVtNY82');
+                opacity: 1;
+            }
+            33%, 58% {
+                background-image: url('jed-owen-ajZibDGpPew-unsplash.jpg');
+                opacity: 1;
+            }
+            66%, 91% {
+                background-image: url('wp1886348-agriculture-wallpapers.jpg');
+                opacity: 1;
+            }
+        }
+@keyframes slideShow {
+    /* First Image */
+    0% {
+        background-image: url('https://www.iisd.org/sites/default/files/styles/banner_mobile/public/2020-06/RS2085_food-agriculture-topic.jpg?h=10d202d3&itok=keVtNY82');
+        transform: translateX(100%) scale(1.1); /* Start off-screen and zoomed in */
+        opacity: 0;
+    }
+    10% {
+        transform: translateX(0) scale(1); /* Bring image to view and scale normally */
+        opacity: 1;
+    }
+    25% {
+        transform: translateX(0) scale(1); /* Hold image steady */
+        opacity: 1;
+    }
+    33% {
+        transform: translateX(-100%) scale(1.2); /* Scroll left and zoom out slightly */
+        opacity: 0;
+    }
+
+    /* Second Image */
+    33% {
+        transform: translateX(100%) scale(1.1);
+        background-image: url('jed-owen-ajZibDGpPew-unsplash.jpg');
+        
+        opacity: 0;
+    }
+    43% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+    58% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+    66% {
+        transform: translateX(-100%) scale(1.2);
+        opacity: 0;
+    }
+
+    /* Third Image */
+    66% {
+        transform: translateX(100%) scale(1.1);
+        background-image: url('wp1886348-agriculture-wallpapers.jpg');
+        
+        opacity: 0;
+    }
+    76% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+    91% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-100%) scale(1.2);
+        opacity: 0;
+    }
+}
+
+
+        /* Mobile Responsive */
+
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--primary);
+                flex-direction: column;
+                padding: 1rem;
+                text-align: center;
+                transition: transform 0.4s ease;
+                /* transform: translate(100%); */
+            }
+
+            .nav-links.active {
+                display: flex;
+                /* transform: translateX(0); */
+
+            }
+            .nav-links.active a{
+                padding-block: 0.5rem;
+                border-bottom: 1px solid #fff;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .logo-footer {
+                border-right: none;
+                border-bottom: 2px solid #fff;
+                margin-right: none;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/logo.jpg" alt="Logo" class="logo-image">
+        </div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#services">Services</a>
+            <a href="#about">About Us</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#pricing-section">Pricing</a>
+            <a href="#contact-section">Contact</a>
+        </div>
+        <div class="menu-btn">☰</div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-content" data-aos="fade-up">
+            <h1 id="demo"></h1>
+            <p>Protect Your Farm with Real-Time Alerts</p>
+            <p>Get instant weather updates, disaster alerts, and expert advice</p>
+            <a href="start.php" target="_blank" class="cta-button">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2 style="text-align: center; margin-bottom: 3rem;">Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card real-weather" data-aos="fade-up">
+                <div class="service-card-image">
+                    <img src="images/istockphoto-1299072018-612x612.jpg" alt="Weather Monitoring Image" class="service-image">
+                </div>
+                
+                <div class="service-icon">
+                    <i class='bx bx-cloud-lightning' ></i>
+                </div>
+                <h3>Real-time Weather Monitoring</h3>
+                <p>We leverage the power of real-time meteorological data combined with satellite imagery to provide farmers with precise, location-specific weather insights.</p>
+            </div>
+            <div class="service-card field-sensor" data-aos="fade-up">
+                <div class="service-card-image">
+                    <img src="images/weather-station-corn-field-5g-600nw-2292899439.jpg" alt="Weather Monitoring Image" class="service-image">
+                </div>
+                
+                <div class="service-icon">
+                    <i class='bx bx-wifi' ></i>
+                </div>
+                <h3>Field Sensor Integration</h3>
+                <p>Using data recorded by sensors planted in your field, we monitor crucial environmental factors and provide actionable insights.</p>
+            </div>
+            <div class="service-card experts" data-aos="fade-up">
+                <div class="service-card-image">
+                    <img src="images/farm-africa.jpg" alt="Weather Monitoring Image" class="service-image">
+                </div>
+                
+                <div class="service-icon">
+                    <i class='bx bx-support' ></i>
+                </div>
+                <h3>Expert Agricultural Support</h3>
+                <p>Our team of agricultural experts provides personalized advice and recommendations based on your specific farming conditions.</p>
+            </div>
+            
+        </div>
+    </section>
+    
+    
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-content">
+            <h2 style="text-align: center; margin-bottom: 2rem;">About Us</h2>
+            <p style="text-align: center; margin-bottom: 3rem;">Our team comprises agricultural experts, technology enthusiasts, and dedicated individuals who are passionate about supporting farmers.</p>
+            
+            <div class="mission-vision">
+                <div class="mission-card" data-aos="fade-right">
+                    <div class="mission-vision-card-image">
+                        <img src="images/mission-icon-1024x800.png" alt="">
+                    </div>
+                    <h3>Our Mission</h3>
+                    <p>To provide real-time weather alerts and disaster preparedness resources that enable farmers to make informed decisions, ensuring the safety of their crops and livestock.</p>
+                </div>
+                <div class="vision-card" data-aos="fade-left">
+                    <div class="mission-vision-card-image">
+                        <img src="images/vision-icon-500-white.png" alt="">
+                    </div>
+                    <h3>Our Vision</h3>
+                    <p>To create a robust support system that helps farmers anticipate and respond to weather challenges, ultimately leading to sustainable agricultural practices and food security.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <h2 style="text-align: center; margin-bottom: 3rem;">How It Works</h2>
+        <div class="steps-container">
+            <div class="step-card" data-aos="fade-up">
+                <h3>Step 0: Hardware Installation at the Farm Location</h3>
+                <p>Create an account and enter your farm location to get personalized weather updates.</p>
+            </div>
+            <div class="step-card" data-aos="fade-up">
+                <h3>Step 1: Sign Up & Set Farm Location</h3>
+                <p>Create an account and enter your farm location to get personalized weather updates.</p>
+            </div>
+            <div class="step-card" data-aos="fade-up" data-aos-delay="100">
+                <h3>Step 2: Receive Alerts</h3>
+                <p>Get real-time weather alerts and disaster warnings specific to your region.</p>
+            </div>
+            <div class="step-card" data-aos="fade-up" data-aos-delay="200">
+                <h3>Step 3: Take Action</h3>
+                <p>Follow the advice and tips provided to protect your crops, livestock, and infrastructure.</p>
+            </div>
+            <div class="step-card" data-aos="fade-up" data-aos-delay="300">
+                <h3>Step 4: Report & Respond</h3>
+                <p>Follow the advice and tips provided to protect your crops, livestock, and infrastructure.</p>
+            </div>
+        </div>
+    </section>
+    <div class="pricing-section" id="pricing-section">
+        <h2>Pricing Plans</h2>
+        <div class="pricing-cards">
+            <!-- Platinum Pricing Card -->
+            <div class="pricing-card platinum">
+                <div class="card-header">
+                    <h3>Platinum Pricing</h3>
+                    <i class="fas fa-star fa-2x"></i> <!-- Font Awesome Star Icon -->
+                </div>
+                <p class="description">Hardware kit + Lifetime Subscription for the Smart Farming Management Tool.</p>
+                <p class="price">$1500 USD</p>
+                <p class="maintenance">With maintenance service for 1 year.</p>
+                <a href="#contact-section" style="text-decoration: none;"><button class="btn" >Choose Plan</button></a>
+            </div>
+    
+            <!-- Rental Pricing Card -->
+            <div class="pricing-card rental">
+                <div class="card-header">
+                    <h3>Rental Pricing</h3>
+                    <i class="fas fa-rent-sign fa-2x"></i> <!-- Font Awesome Rent Icon -->
+                </div>
+                <p class="description">Rent the hardware + Monthly Subscription.</p>
+                <p class="price">$25 USD/month</p>
+                <a href="#contact-section" style="text-decoration: none;"><button class="btn" >Choose Plan</button></a>
+            </div>
+        </div>
+    </div>
+    
+    <section class="team-section">
+        <h2 style="text-align: center; margin-bottom: 3rem;">Meet Our Team</h2>
+        <div class="team-grid">
+            <!-- Team Member 1 -->
+            <div class="team-card" data-aos="fade-up">
+                <div class="team-card-image">
+                    <img src="images/WhatsApp Image 2024-10-24 at 14.45.00_b94418a3.jpg" alt="John Doe">
+                    <div class="social-overlay">
+                        <a href="https://www.linkedin.com/in/namurinda-alex-25217a255/" target="_blank" class="social-icon" ><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-card-content">
+                    <h3>Namulinda Alex</h3>
+                    <p>Chief Executive Officer</p>
+                </div>
+            </div>
+
+            <!-- Team Member 2 -->
+            <div class="team-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="team-card-image">
+                    <img src="images/1706035715166.jpg" alt="Jane Smith">
+                    <div class="social-overlay">
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-card-content">
+                    <h3>Putshu Samuel</h3>
+                    <p>Chief Technical Officer</p>
+                </div>
+            </div>
+
+            <!-- Team Member 3 -->
+            <div class="team-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="team-card-image">
+                    <img src="images/1714847150582.jpg" alt="Mike Johnson">
+                    <div class="social-overlay">
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-card-content">
+                    <h3>Zacharie Masimango</h3>
+                    <p>Lead Developer</p>
+                </div>
+            </div>
+
+            <!-- Team Member 4 -->
+            <div class="team-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="team-card-image">
+                    <img src="images/Screenshot 2024-10-24 154822.png" alt="Sarah Williams">
+                    <div class="social-overlay">
+                        <a href="https://www.linkedin.com/in/namurinda-alex-25217a255/" target="_blank" class="social-icon" ><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-card-content">
+                    <h3>William Ahaisibwe</h3>
+                    <p>Hardware Lead</p>
+                </div>
+            </div>
+
+            
+        </div>
+    </section>
+    <section class="contact-section" id="contact-section">
+        <div class="contact-container">
+            <h2 style="text-align: center; margin-bottom: 1rem;">Contact Us</h2>
+            <p style="text-align: center; margin-bottom: 3rem;">Have questions? We'd love to hear from you.</p>
+            
+            <form class="contact-form" data-aos="fade-up">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="name" placeholder="Name">
+                    <label class="floating-label" for="name">Name</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="email" class="form-control" id="email" placeholder="Email">
+                    <label class="floating-label" for="email">Email</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="text" class="form-control" id="subject" placeholder="Subject">
+                    <label class="floating-label" for="subject">Subject</label>
+                </div>
+                
+                <div class="form-group">
+                    <textarea class="form-control" id="message" placeholder="Message"></textarea>
+                    <label class="floating-label" for="message">Message</label>
+                </div>
+                
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="logo-footer">
+                <div class="logo-footer-image">
+                    <img src="images/logo.jpg" alt="">
+                </div>
+                <p>Protecting farms through technology</p>
+            </div>
+            <div class="quick-links">
+                <h3>Quick Links</h3>
+                <p><a href="#home" style="color: white;">Home</a></p>
+                <p><a href="#services" style="color: white;">Services</a></p>
+                <p><a href="#about" style="color: white;">About Us</a></p>
+                <p><a href="#how-it-works" style="color: white;">How It Works</a></p>
+            </div>
+            <div class="contact-us-footer">
+                <h3>Contact Us</h3>
+                <p><i class='bx bxs-envelope'></i>Email: info@agritech.com</p>
+                <p><i class='bx bxs-phone-call' ></i>Phone: +256780393671</p>
+                <p>Ntinda Road, Plot 145</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS animation library
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Mobile menu toggle
+        const menuBtn = document.querySelector('.menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+            });
+        });
+        const form = document.querySelector('.contact-form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Add your form submission logic here
+            alert('Message sent successfully!');
+            form.reset();
+        });
+    </script>
+    <script>
+        var i = 0;
+var txt = 'STAY AHEAD OF WEATHER DISASTERS'; /* The text */
+var speed = 50; /* The speed/duration of the effect in milliseconds */
+
+function typeWriter() {
+  if (i < txt.length) {
+    document.getElementById("demo").innerHTML += txt.charAt(i);
+    i++;
+    setTimeout(typeWriter, speed);
+  }
+}
+window.onload = typeWriter();
+    </script>
+</body>
+</html>

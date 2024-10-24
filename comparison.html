@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Suitability Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9f5e9;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50; /* Dark Green */
+            margin-bottom: 30px;
+            font-size: 2.5em; /* Larger font size */
+        }
+        form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 400px; /* Fixed width for better alignment */
+        }
+        label {
+            margin: 15px 0 5px;
+            display: block;
+            font-weight: bold;
+            color: #333;
+        }
+        input {
+            margin: 10px 0 20px; /* Spacing for better alignment */
+            padding: 10px;
+            width: calc(100% - 22px); /* Adjust width to account for padding */
+            border: 2px solid #4CAF50; /* Green border */
+            border-radius: 5px;
+            font-size: 1em; /* Increase font size */
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em; /* Increase font size */
+            width: 100%; /* Full width */
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049; /* Darker green */
+        }
+        .results {
+            margin-top: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: none; /* Initially hidden */
+        }
+        ul {
+            padding-left: 20px; /* Indentation for list */
+        }
+        li {
+            color: #333; /* Darker text color for list items */
+            margin: 5px 0; /* Spacing between items */
+        }
+    </style>
+</head>
+<body>
+
+<h1>Crop Suitability Checker</h1>
+<form id="cropForm">
+    <label for="temperature">Temperature (°C):</label>
+    <input type="number" id="temperature" required>
+
+    <label for="humidity">Humidity (%):</label>
+    <input type="number" id="humidity" required>
+
+    <label for="moisture">Soil Moisture (%):</label>
+    <input type="number" id="moisture" required>
+
+    <button type="submit">Check Suitable Crops</button>
+</form>
+
+<div class="results" id="results">
+    <h2>Suitable Crops:</h2>
+    <ul id="suitableCropsList"></ul>
+</div>
+
+<script>
+    class Crop {
+        constructor(name, optimalTemperature, optimalHumidity, optimalSoilMoisture) {
+            this.name = name;
+            this.optimalTemperature = optimalTemperature; // {min: value, max: value}
+            this.optimalHumidity = optimalHumidity;       // {min: value, max: value}
+            this.optimalSoilMoisture = optimalSoilMoisture; // {min: value, max: value}
+        }
+
+        isSuitable(currentTemp, currentHumidity, currentMoisture) {
+            return (currentTemp >= this.optimalTemperature.min && currentTemp <= this.optimalTemperature.max) &&
+                   (currentHumidity >= this.optimalHumidity.min && currentHumidity <= this.optimalHumidity.max) &&
+                   (currentMoisture >= this.optimalSoilMoisture.min && currentMoisture <= this.optimalSoilMoisture.max);
+        }
+    }
+
+    // Create a list of crops with their conditions
+    const crops = [
+        new Crop("Corn", {min: 20, max: 30}, {min: 60, max: 80}, {min: 20, max: 30}),
+        new Crop("Wheat", {min: 10, max: 25}, {min: 50, max: 70}, {min: 10, max: 20}),
+        new Crop("Rice", {min: 20, max: 30}, {min: 70, max: 90}, {min: 25, max: 35}),
+        new Crop("Coffee", {min: 15, max: 24}, {min: 60, max: 70}, {min: 15, max: 25}),
+        new Crop("Tomatoes", {min: 20, max: 30}, {min: 50, max: 70}, {min: 10, max: 20}),
+        new Crop("Potatoes", {min: 15, max: 20}, {min: 60, max: 80}, {min: 15, max: 25}),
+        new Crop("Lettuce", {min: 15, max: 20}, {min: 70, max: 80}, {min: 20, max: 30}),
+        new Crop("Cucumbers", {min: 18, max: 24}, {min: 60, max: 80}, {min: 15, max: 30}),
+    ];
+
+    document.getElementById('cropForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const currentTemp = parseFloat(document.getElementById('temperature').value);
+        const currentHumidity = parseFloat(document.getElementById('humidity').value);
+        const currentMoisture = parseFloat(document.getElementById('moisture').value);
+
+        const suitableCrops = crops.filter(crop => crop.isSuitable(currentTemp, currentHumidity, currentMoisture));
+        
+        // Display results
+        const resultsDiv = document.getElementById('results');
+        const cropsList = document.getElementById('suitableCropsList');
+        cropsList.innerHTML = ''; // Clear previous results
+        
+        if (suitableCrops.length > 0) {
+            suitableCrops.forEach(crop => {
+                const li = document.createElement('li');
+                li.textContent = crop.name;
+                cropsList.appendChild(li);
+            });
+        } else {
+            cropsList.innerHTML = '<li>No suitable crops found for the given conditions.</li>';
+        }
+        
+        resultsDiv.style.display = 'block';
+    });
+</script>
+
+</body>
+</html>
